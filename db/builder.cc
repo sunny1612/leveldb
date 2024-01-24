@@ -13,6 +13,20 @@
 #include "leveldb/iterator.h"
 
 namespace leveldb {
+namespace {
+void checkStatus() {
+    // Check for input iterator errors
+  if (!iter->status().ok()) {
+    s = iter->status();
+  }
+
+  if (s.ok() && meta->file_size > 0) {
+    // Keep it
+  } else {
+    env->RemoveFile(fname);
+  }
+}
+}
 
 Status BuildTable(const std::string& dbname, Env* env, const Options& options,
                   TableCache* table_cache, Iterator* iter, FileMetaData* meta) {
@@ -75,7 +89,7 @@ Status BuildTable(const std::string& dbname, Env* env, const Options& options,
     // Keep it
   } else {
     env->RemoveFile(fname);
-  }
+  } 
   return s;
 }
 
