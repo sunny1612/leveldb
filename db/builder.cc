@@ -75,8 +75,7 @@ Status BuildTable(const std::string& dbname, Env* env, const Options& options,
     // Keep it
   } else {
     env->RemoveFile(fname);
-  }
-  return s;
+  } 
   return s;
 }
 
